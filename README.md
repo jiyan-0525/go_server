@@ -47,20 +47,22 @@ COPY goserver /bin/goserver
 
 CMD ["/bin/goserver"]
 ```
-Build your Dockerfile into an image.
-bash
+Build your Dockerfile into an image:
+
 ```
 docker build . -t goserver:latest
 ```
 
 Start a new container from the image. Be sure to forward the ports to your host machine.
+
 ```
 docker run -p 8010:8010 goserver
 ```
 If you get an exec format error, it's probably because you built the go server for your local architecture, but you're trying to run it on a Linux OS! To fix it, rebuild the binary (and then the Dockerfile) with these environment variables:
 
+```
 GOOS=linux GOARCH=amd64 go build
-
+```
 You should be able to access your server from the browser just like before, but this time it's running inside of Docker!
 
 ```
@@ -69,6 +71,7 @@ http://localhost:8010
 ## Publishing to Docker Hub
 
 Rebuild the Go binary:
+
 ```
 GOOS=linux GOARCH=amd64 go build
 ```
@@ -78,14 +81,12 @@ Rebuild the image. You'll need to use a name that corresponds to your namespace 
 docker build . -t USERNAME/goserver
 ```
 
-bash
 ```
 docker login
 
 docker tag goserver jiyanwang/goserver
 docker push jiyanwang/goserver
 ```
-bash
 ```
 docker run -p 8991:8991 jiyanwang/goserver
 
@@ -94,19 +95,16 @@ docker push jiyanwang/goserver
 
 Remove your local USERNAME/goserver image:
 
-bash
 ```
 docker image rm jiyanwawng/goserver
 ```
 Pull it back down from Docker Hub:
 
-bash
 ```
 docker pull jiyanwang/goserver
 ```
 Run it to make sure it works:
 
-bash
 ```
 docker run -p 8991:8991 jiyanwang/goserver
 ```
