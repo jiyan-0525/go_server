@@ -1,0 +1,22 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main  # 当 main 分支更新时触发
+
+pool:
+  vmImage: ubuntu-latest  # 使用最新的 Ubuntu 环境进行构建
+
+steps:
+# 步骤 1: 登录 Docker Hub (这一步需要你先配置 Service Connection)
+- task: Docker@2
+  displayName: "Build Docker Image"
+  inputs:
+    command: 'build'
+    dockerfile: '**/Dockerfile'
+    repository: 'jiyan-0525/goserver' # 替换为你的 Docker Hub 用户名/镜像名
+    tags: |
+      latest
+      $(Build.BuildId)
