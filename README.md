@@ -1,4 +1,4 @@
-# goserver
+# 🌐 goserver 🚀
 
 run
 ```
