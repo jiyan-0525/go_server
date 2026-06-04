@@ -4,19 +4,19 @@
 # https://aka.ms/yaml
 
 trigger:
-- main  # 当 main 分支更新时触发
+- main
 
 pool:
-  vmImage: ubuntu-latest  # 使用最新的 Ubuntu 环境进行构建
+  vmImage: ubuntu-latest
 
 steps:
-# 步骤 1: 登录 Docker Hub (这一步需要你先配置 Service Connection)
 - task: Docker@2
-  displayName: "Build Docker Image"
+  displayName: "Build and Push to Docker Hub"
   inputs:
-    command: 'build'
+    containerRegistry: 'dockerhub-conn' 
+    repository: 'jiyan-0525/goserver'   
+    command: 'buildAndPush'             
     dockerfile: '**/Dockerfile'
-    repository: 'jiyan-0525/goserver' # 替换为你的 Docker Hub 用户名/镜像名
     tags: |
       latest
       $(Build.BuildId)
