@@ -14,7 +14,7 @@ steps:
   displayName: "Build and Push to Docker Hub"
   inputs:
     containerRegistry: 'dockerhub-conn' 
-    repository: 'jiyan-0525/goserver'   
+    repository: 'jiyanwang/goserver'   
     command: 'buildAndPush'             
     dockerfile: '**/Dockerfile'
     tags: |
